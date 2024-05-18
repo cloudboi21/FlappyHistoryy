@@ -152,9 +152,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd53adb851ac4274d874b95934057532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipe: {fileID: 4945876478551901875, guid: 1a708e4d7de549b4cbda8cfada3dac94, type: 3}
+  pipe1: {fileID: 4945876478551901875, guid: 12687fc8d0b2aaa4d9565c1dfcf6e829, type: 3}
+  pipe2: {fileID: 4945876478551901875, guid: 12687fc8d0b2aaa4d9565c1dfcf6e829, type: 3}
+  pipe3: {fileID: 4945876478551901875, guid: 12687fc8d0b2aaa4d9565c1dfcf6e829, type: 3}
+  pipeToBeSpawned: 1
   spawnRate: 2
   heightOffset: 10
+  spawnedPipes: 0
 --- !u!4 &65953515
 Transform:
   m_ObjectHideFlags: 0
