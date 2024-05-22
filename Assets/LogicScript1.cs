@@ -3,15 +3,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
-public class LogicScript : MonoBehaviour
+public class LogicScript1 : MonoBehaviour
 {
     public int playerScore;
     public Text scoreText;
     public Text checkpointText;
     public GameObject gameOverScreen;
     public GameObject gameCheckpointScreen;
-    public int levelOffset = 2;
-    public bool isLevel2 = false;
+    public int levelOffset = 0;
     Dictionary<int, string> infoDictionary = new Dictionary<int, string>()
     {
         {1,"Civilizația antică grecească, cunoscută pentru influențele sale durabile, a fost epicentrul culturii, filosofiei și artei occidentale. Orașele-stat precum Atena și Sparta au dezvoltat sisteme politice unice, cu democrația ateniană ca exemplu de guvernare participativă." },
@@ -26,15 +25,7 @@ public class LogicScript : MonoBehaviour
         {9,"Societatea egipteană era rigid structurată, cu faraoni la vârf, urmați de nobili, preoți, funcționari și fermieri. Femeile aveau anumite drepturi, cum ar fi dreptul de a conduce afaceri și de a deține proprietăți, dar nu aveau aceeași putere socială ca bărbații." },
         {10,"Egiptul antic era un centru al învățăturii și al înțelepciunii. Școli speciale pregăteau copiii pentru diferite ocupații, iar scribii erau deosebit de respectați pentru abilitățile lor în domeniul scrierii și contabilității." },
         {11,"Egiptenii erau cunoscuți pentru realizările lor în domeniul artei și arhitecturii. Sculpturile și picturile lor sunt faimoase pentru detaliile fine și simbolismul lor puternic. Arhitectura lor monumentală, cum ar fi templele și piramidele, reprezintă încă o enigmă pentru oamenii de știință." },
-        {12,"Egiptenii antici au contribuit semnificativ la dezvoltarea medicinei, practicând chirurgie rudimentară și utilizând plante medicinale. Cunoștințele lor în domeniul embalsamării au fost remarcabile, iar mumificarea era o parte importantă a culturii funerare egiptene." },
-
-        {13,"Japonia feudală, care a durat din secolul al XII-lea până la mijlocul secolului al XIX-lea, a fost caracterizată printr-o structură socială strictă și o guvernare dominată de samurai și shoguni. Shogunii, liderii militari supremi, dețineau puterea reală, în timp ce împărații aveau un rol ceremonial." },
-        {14,"Samuraii erau războinici de elită, respectați pentru codul lor de onoare, Bushido. Aceștia erau loiali stăpânilor lor feudal, daimyo, și erau cunoscuți pentru abilitățile lor în artele marțiale și pentru devotamentul lor față de cauze nobile, punând onoarea și loialitatea mai presus de viață." },
-        {15,"Daimyo erau stăpâni feudali puternici care dețineau mari domenii și aveau propriile armate de samurai. Aceștia aveau o influență semnificativă în cadrul politicii și economiei regionale și se angajau frecvent în războaie pentru a-și extinde puterea și teritoriile." },
-        {16,"Agricultura era baza economiei în Japonia feudală. Țăranii, sau mujicii, cultivau pământurile daimyo-ilor și plăteau taxe în produse agricole. Deși statutul lor era unul modest, rolul lor era esențial pentru supraviețuirea și prosperitatea economică a societății." },
-        {17,"Cultura japoneză a înflorit în perioada feudală, cu dezvoltări semnificative în literatură, teatru și arte. Teatrul Noh și Kabuki, ceremonia ceaiului și aranjamentele florale Ikebana au devenit elemente culturale importante, reflectând valorile estetice și filosofice ale epocii." },
-        {18,"Izolaționismul a fost o caracteristică cheie a Japoniei feudale, mai ales în perioada Edo (1603-1868), sub shogunatul Tokugawa. Politica Sakoku a limitat drastic contactele cu străinii, permițând Japoniei să dezvolte o cultură unică și coezivă, protejată de influențele externe până la deschiderea forțată a țării în anii 1850.\r\n\r\n\r\n\r\n\r\n\r\n" }
-
+        {12,"Egiptenii antici au contribuit semnificativ la dezvoltarea medicinei, practicând chirurgie rudimentară și utilizând plante medicinale. Cunoștințele lor în domeniul embalsamării au fost remarcabile, iar mumificarea era o parte importantă a culturii funerare egiptene." }
     };
 
 
@@ -42,23 +33,21 @@ public class LogicScript : MonoBehaviour
 
     [ContextMenu("Increase Score")]
     public void addScore()
-    {   
-
-        if(playerScore < 10)
+    {
+        if (playerScore < 10)
         {
             playerScore = playerScore + 1;
             scoreText.text = playerScore.ToString();
-            if (playerScore % 3 ==0)
+            if (playerScore % 3 == 0)
             {
                 gameCheckpoint();
             }
         }
         else
-        {   
-
+        {
             nextLevel();
         }
-        
+
     }
 
     public void resume()
@@ -73,30 +62,11 @@ public class LogicScript : MonoBehaviour
     }
     [ContextMenu("Checkpoint")]
     public void gameCheckpoint()
-    {
-        checkLevel();
+    {   
         checkpointText.text = infoDictionary[playerScore / 3 + levelOffset];
         gameCheckpointScreen.SetActive(true);
         Time.timeScale = 0;
     }
-    public void checkLevel()
-    {
-        if (SceneManager.GetActiveScene().name == "Level3")
-        {
-            levelOffset = 12;
-        }
-        else if (SceneManager.GetActiveScene().name == "Level2")
-        {
-            levelOffset = 6;
-        }
-        else if (SceneManager.GetActiveScene().name == "Level1")
-        {
-            levelOffset = 0;
-        }
-        
-        
-    }
-
     public void continueCheckpoint()
     {
         gameCheckpointScreen.SetActive(false);
