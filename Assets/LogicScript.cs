@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
+
+
 public class LogicScript : MonoBehaviour
 {
     public int playerScore;
@@ -10,6 +12,8 @@ public class LogicScript : MonoBehaviour
     public Text checkpointText;
     public GameObject gameOverScreen;
     public GameObject gameCheckpointScreen;
+    public GameObject heart3, heart2, heart1;
+    public int lives = 3;
     public int levelOffset = 2;
     public bool isLevel2 = false;
     Dictionary<int, string> infoDictionary = new Dictionary<int, string>()
@@ -20,6 +24,7 @@ public class LogicScript : MonoBehaviour
         {4,"Mitologia greacă, plină de zei, eroi și monștri, a oferit povești bogate în învățăminte morale și culturale. Epopeele lui Homer, „Iliada” și „Odiseea”, sunt capodopere literare care explorează teme precum onoarea, curajul și destinul." },
         {5,"Sportul și competițiile erau esențiale în Grecia antică, iar Jocurile Olimpice, inițiate în 776 î.Hr., reprezintă cel mai faimos exemplu. Aceste jocuri, dedicate zeilor și desfășurate la fiecare patru ani, reuneau sportivi din diverse cetăți-state și promovau pacea și unitatea între greci." },
         {6,"Moștenirea greacă a persistat prin scrierile literare, teatrul și filosofia sa. Tragici precum Eschil, Sofocle și Euripide au explorat complexitatea condiției umane în operele lor. Aceste creații literare au fost studiate și apreciate de-a lungul secolelor." },
+
 
         {7,"Egiptenii antici au dezvoltat un sistem sofisticat de scriere, hieroglifele, și au construit monumente remarcabile precum piramidele din Giza, care continuă să fascineze omenirea." },
         {8,"Religia era centrală pentru viața egiptenilor. Ei credeau într-o lume de apoi și își îngropau morții cu bunuri pentru această călătorie. Zeii și zeițele erau venerați și considerați responsabili pentru evenimentele naturale și umane." },
@@ -108,12 +113,51 @@ public class LogicScript : MonoBehaviour
     }
     public void restartGame()
     {
+        GameManager.Instance.ResetLives();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void gameOver()
     {
+        Time.timeScale = 0;
         gameOverScreen.SetActive(true);
+    }
+
+    public void showLives()
+    {
+        int lives = GameManager.Instance.lives;
+
+        heart1.SetActive(lives >= 1);
+        heart2.SetActive(lives >= 2);
+        heart3.SetActive(lives >= 3);
+
+        if (lives == 0)
+        {
+            gameOver();
+
+        }
+    }
+    public void changeLives()
+    {
+        GameManager.Instance.LoseLife();
+        showLives();
+        restartLevel();
+    }
+
+    public void restartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void loadPreviousLevel()
+    {
+        if (SceneManager.GetActiveScene().name == "Level3")
+        {
+            SceneManager.LoadSceneAsync("Level2");
+        }
+        else if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            SceneManager.LoadSceneAsync("Level1");
+        }
     }
 }
 
